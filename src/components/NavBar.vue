@@ -1,6 +1,8 @@
 <script setup>
 import { useRoute } from 'vue-router';
+import { useAuthStore } from '@/stores/auth.store';
 
+const authStore = useAuthStore();
 const isActive = (routePath) => useRoute().path === routePath;
 </script>
 
@@ -15,8 +17,8 @@ const isActive = (routePath) => useRoute().path === routePath;
 				Tickets
 			</RouterLink>
 		</div>
-		<RouterLink to="/" class="flex items-center px-5 py-2 m-4 border rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white">
+		<a @click.prevent="authStore.logout()" class="flex items-center px-5 py-2 m-4 border rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white">
 			Logout
-		</RouterLink>
+		</a>
 	</div>
 </template>

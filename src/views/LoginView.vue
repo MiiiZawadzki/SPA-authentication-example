@@ -1,7 +1,14 @@
 <script setup>
 import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth.store';
+
+const authStore = useAuthStore();
 const email = ref('');
 const password = ref('');
+
+const handleLogin = () => {
+  authStore.login({ email: email.value, password: password.value });
+};
 </script>
 
 <template>
