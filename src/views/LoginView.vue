@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth.store';
 
 const authStore = useAuthStore();
@@ -9,6 +9,11 @@ const password = ref('');
 const handleLogin = () => {
   authStore.login({ email: email.value, password: password.value });
 };
+
+onMounted(async () => {
+    authStore.clearErrors();
+});
+
 </script>
 
 <template>
@@ -19,6 +24,12 @@ const handleLogin = () => {
             </RouterLink>
         </div>
         <div class="flex items-center p-10 flex-col m-10 mx-24">
+            <div :class="[authStore.flash !== '' ? 'block' : 'hidden', 'bg-green-100 border rounded-xl w-full p-5 mb-10']">
+                <p class="text-neutral-700">{{ authStore.flash }}</p>
+            </div>
+            <div :class="[authStore.errors.value ? 'block' : 'hidden', 'bg-red-100 border rounded-xl w-full p-5 mb-10']">
+                <p class="text-neutral-700" v-for="error in authStore.errors.value" :key="error">{{ error }}</p>
+            </div>
             <div class="flex flex-col w-fit border border-4 rounded-xl p-10 bg-white">
                 <h1 class="text-2xl font-bold mb-2 text-center">Login</h1>
                 <form @submit.prevent="handleLogin" class="flex flex-col w-80">

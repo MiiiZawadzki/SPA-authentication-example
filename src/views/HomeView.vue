@@ -1,8 +1,29 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive, onMounted } from 'vue';
 import NavBar from '@/components/NavBar.vue'
 import DashboardStatistics from '@/components/DashboardStatistics.vue'
-const tickets = ref(0);
+import { useAuthStore } from '@/stores/auth.store';
+import axios from 'axios';
+
+const state = reactive({
+    statistics: {
+        new: 0,
+        open: 0
+    }
+});
+
+const authStore = useAuthStore();
+
+onMounted(async () => {
+    try {
+        const response = await axios.get(`/api/home`);
+        state.statistics.new = response.data.new;
+        state.statistics.open = response.data.open;
+
+    } catch (error) {
+        console.error('Error fetching statistics', error);
+    }
+});
 </script>
 
 <template>
@@ -10,9 +31,9 @@ const tickets = ref(0);
         <NavBar />
         <div class="flex justify-center">
             <div class="w-fit">
-                <h1 class="text-7xl font-thin text-center mt-20">Hello, username</h1>
+                <h1 class="text-7xl font-thin text-center mt-20">Hello, {{ authStore.user.name }}</h1>
                 <div class="mt-20 flex justify-center">
-                    <DashboardStatistics :tickets="tickets" />
+                    <DashboardStatistics :statistics="state.statistics" />
                 </div>
             </div>
         </div>

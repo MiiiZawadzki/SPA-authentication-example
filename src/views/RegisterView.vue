@@ -1,9 +1,22 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useAuthStore } from '@/stores/auth.store';
+
 const name = ref('');
 const email = ref('');
 const password = ref('');
 const password_confirmation = ref('');
+
+const authStore = useAuthStore();
+
+const handleRegister = () => {
+  authStore.register({ name: name.value, email: email.value, password: password.value, password_confirmation: password_confirmation.value });
+};
+
+onMounted(async () => {
+    authStore.clearErrors();
+});
+
 </script>
 
 <template>
@@ -14,9 +27,12 @@ const password_confirmation = ref('');
             </RouterLink>
         </div>
         <div class="flex items-center p-10 flex-col m-10 mx-24">
+            <div :class="[authStore.errors.value ? 'block' : 'hidden', 'bg-red-100 border rounded-xl w-full p-5 mb-10']">
+                <p class="text-neutral-700" v-for="error in authStore.errors.value" :key="error">{{ error }}</p>
+            </div>
             <div class="flex flex-col w-fit border border-4 rounded-xl p-10 bg-white">
                 <h1 class="text-2xl font-bold mb-2 text-center">Register</h1>
-                <form @submit.prevent="handleLogin" class="flex flex-col w-80">
+                <form @submit.prevent="handleRegister" class="flex flex-col w-80">
                     <div class="flex flex-col m-3">
                         <label for="name" class="mx-3 text-neutral-800 mb-1">Name</label>
                         <input id="name" type="text" class="border rounded-lg mx-3 px-3 py-2" v-model="name"
