@@ -5,6 +5,9 @@ This is an example of a cookie-based authentication mechanism in a Single Page A
 
 Both the frontend application and the API are intentionally simple, focusing primarily on the authentication mechanism, rather than building a complex application.
 
+![16_prettify](https://github.com/user-attachments/assets/f2072250-535d-48d7-8226-a1b25408cb12)
+
+
 ## Frontend
 The frontend application is a typical Single Page Application (SPA) built with **Vue 3.5**, using **Tailwind CSS** for basic UI styling, **Axios** for handling requests, and **Pinia** for state management.
 
