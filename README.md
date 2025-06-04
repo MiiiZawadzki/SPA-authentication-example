@@ -1,32 +1,44 @@
 
-# PHP & JavaScript Chunk File Upload Demo
+# Example of Cookie-Based Authentication in SPA App with Vue and Laravel
 
-This is a demo application showcasing how to upload files in chunks using JavaScript on the frontend and PHP on the backend.
+This is an example of a cookie-based authentication mechanism in a Single Page Application (SPA). The entire system (frontend and backend) is a simplified version of a user ticket management system called **TicketApp**.
 
-The application provides a simple form where you can select a file. Once selected, the file's metadata — including the name, size, and a generated checksum (hash) — will be displayed.
+Both the frontend application and the API are intentionally simple, focusing primarily on the authentication mechanism, rather than building a complex application.
 
-When you click the Upload button, the file is divided into 1 MB chunks, which are then uploaded sequentially via separate HTTP requests.
-
-To help visualize the process, the app includes:
-
-* A progress bar showing overall upload progress.
-
-* A log viewer showing the status of each chunk upload.
-  
-![2](https://github.com/user-attachments/assets/f9c3d94c-0767-4e1f-922c-d33165bb0a44)
+![16_prettify](https://github.com/user-attachments/assets/f2072250-535d-48d7-8226-a1b25408cb12)
 
 
-## Project Setup
-To run the application locally:
-1. Navigate to the project root directory.
-2. Start a local PHP server:
-```
-  php -S localhost:8000
-```
-3. Open your browser and go to:
-```
-  http://localhost:8000/
+## Frontend
+The frontend application is a typical Single Page Application (SPA) built with **Vue 3.5**, using **Tailwind CSS** for basic UI styling, **Axios** for handling requests, and **Pinia** for state management.
+
+
+### Frontend Setup
+
+To set up the Vue app, navigate to the `vue` directory. Optionally, configure the app settings as needed and then run the following commands:
+
+```bash
+  npm install
 ```
 
-After these steps, you should see the file upload form and be ready to test the chunk upload functionality.
+```bash
+  npm run dev
+```
+This will install dependencies and start the development server for the Vue application.
 
+
+
+## Backend
+The backend is a simple API built with **Laravel 11**, and authentication is managed using the official **Laravel Sanctum** package.
+
+### Backend Setup
+
+To set up the Laravel app, navigate to the `laravel` directory, set up the `.env` file, optionally configure other settings, and run the following commands:
+
+```bash
+  composer install
+```
+
+```bash
+  php artisan serve
+```
+This will install the required dependencies and start the development server for the Laravel API.
